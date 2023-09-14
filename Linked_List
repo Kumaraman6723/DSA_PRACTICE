@@ -1,0 +1,45 @@
+//to add values in the LinkedList and Display it 
+class Node {
+    int val;
+    Node next;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+
+public class LL {
+    Node head;
+
+    public LL() {
+        head = null;
+    }
+
+    public void addValue(int val) {
+        Node newNode = new Node(val);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    public void displayList() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.val + " -> ");
+            current = current.next;
+        }
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) {
+        LL list = new LL();
+
+        // Adding values to the linked list
+        list.addValue(1);
+        list.addValue(2);
+        list.addValue(3);
+
+        // Displaying the linked list
+        list.displayList();
+    }
+}
