@@ -1,0 +1,45 @@
+//Find the first and last occurence of an element  in an sorted array using binary search.
+//in this we will run binary search twice first to find 1st occurence of the target element and 2nd time to find the last occurence of the target element
+import java.util.Arrays;
+
+public class FirstAndLastPositionOfAnElement {
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 4, 7, 7, 7, 7, 9, 10, 13, 19, 122};
+        int target = 7;
+        int[] ans = searchRange(arr, target);
+        System.out.println("The first and last occurrence of the element in a sorted array is " + Arrays.toString(ans));
+    }
+
+    public static int[] searchRange(int[] arr, int target) {
+        int[] ans = {-1, -1};
+        int start = search(arr, target, true);
+        int last = search(arr, target, false);
+        ans[0] = start;
+        ans[1] = last;
+        return ans;
+    }
+
+    static int search(int[] arr, int target, boolean findStartIndex) {
+        int ans = -1;
+        int start = 0;
+        int end = arr.length - 1;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if (target < arr[mid]) {
+                end = mid - 1;
+            } else if (target > arr[mid]) {
+                start = mid + 1;
+            } else {
+                ans = mid;
+                if (findStartIndex) {
+                    end = mid - 1;
+                } else {
+                    start = mid + 1;
+                }
+            }
+        }
+        return ans;
+    }
+}
