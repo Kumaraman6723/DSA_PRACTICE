@@ -1,0 +1,31 @@
+//This is similar to finding the peak index in an mountain array
+public class PeakIndexInMountainArray {
+    public static void main(String[] args) {
+      
+        int[] arr = {1, 2, 5, 6, 4, 3};
+        int peakIndex = findPeak(arr);
+        System.out.println("Peak Index: " + arr[peakIndex]);
+    }
+
+    static int findPeak(int[] arr) {
+        int start = 0;
+        int end = arr.length - 1;
+
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+
+            if (arr[mid] > arr[mid + 1]) {
+                // We are on the decreasing side of the mountain.
+                // The peak is on the left side (including mid).
+                end = mid;
+            } else {
+                // We are on the increasing side of the mountain.
+                // The peak is on the right side (excluding mid).
+                start = mid + 1;
+            }
+        }
+
+        // The loop exits when start == end, which is the peak index.
+        return start;
+    }
+}
