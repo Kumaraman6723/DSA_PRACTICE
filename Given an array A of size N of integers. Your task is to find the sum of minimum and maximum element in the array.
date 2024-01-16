@@ -1,0 +1,32 @@
+class Solution { 
+    public static int findSum(int A[], int N) {
+        int max = max(A);
+        int min = min(A);
+        int sum = max + min;
+        return sum;
+    }
+
+    public static int max(int A[]) {
+        int max = A[0];
+
+        for (int i = 1; i < A.length; i++) {
+            if (A[i] > max) {
+                max = A[i];
+            }
+        }
+
+        return max;
+    }
+
+    public static int min(int A[]) {
+        int min = A[0];
+
+        for (int i = 1; i < A.length; i++) {
+            if (A[i] < min) {
+                min = A[i];
+            }
+        }
+
+        return min;
+    }
+}
