@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class Factorial {
+    public static int rec(int n) {
+        if (n == 0) {
+            return 1;
+        } else {
+            return n * rec(n - 1);
+        }
+    }
+
+    public static int iterative(int n) {
+        int mul = 1;
+        if (n == 0) {
+            return 1;
+        } else {
+            for (int i = n; i >= 1; i--) {
+                mul *= i;
+            }
+            return mul;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the number you want to find factorial of:");
+        int a = sc.nextInt();
+
+        int bRec = rec(a);
+        int bIterative = iterative(a);
+
+        System.out.println("Factorial of " + a + " (Recursive) is: " + bRec);
+        System.out.println("Factorial of " + a + " (Iterative) is: " + bIterative);
+    }
+}
