@@ -1,0 +1,22 @@
+public class ReverseUsingRecursion {
+    static int sum=0;
+    static int ReverseOfDigits(int n)
+    {
+
+        if(n==0)
+        {
+            return 0;
+        }
+        int rev=n%10;
+        sum=sum*10+rev;
+        ReverseOfDigits(n/10);
+        return sum;
+
+
+    }
+
+    public static void main(String[] args) {
+        int a=ReverseOfDigits(1234);
+        System.out.println(a);
+    }
+}
