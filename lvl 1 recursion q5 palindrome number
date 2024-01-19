@@ -1,0 +1,27 @@
+public class ReverseUsingRecursion {
+    static int sum=0;
+    static int ReverseOfDigits(int n)
+    {
+
+        if(n==0)
+        {
+            return 0;
+        }
+        int rev=n%10;
+        sum=sum*10+rev;
+        ReverseOfDigits(n/10);
+        return sum;
+
+
+    }
+    static boolean palin(int n)
+    {
+        return n==ReverseOfDigits(n);
+    }
+
+    public static void main(String[] args) {
+
+
+        System.out.println(palin(12344321));
+    }
+}
