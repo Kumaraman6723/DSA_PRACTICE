@@ -1,22 +1,69 @@
+import java.util.ArrayList;
+
 public class CheckIndexUsingRecursion {
 
-  static int CheckIndex(int[] a,int i,int target)
-  {
-      if(i == a.length)
-      {
-          return -1;
-      }
-          if (a[i] == target) {
-              return i;
-          }
-          return CheckIndex(a, i + 1, target);
+    static int CheckIndex(int[] a, int i, int target) {
+        if (i == a.length) {
+            return -1;
+        }
+        if (a[i] == target) {
+            return i;
+        }
+        return CheckIndex(a, i + 1, target);
+    }
 
+    static int CheckLastIndex(int[] a, int i, int target) {
+        if (i == 0) {
+            return -1;
+        }
+        if (a[i] == target) {
+            return i;
+        }
+        return CheckLastIndex(a, i - 1, target);
+    }
 
-  }
+    static ArrayList<Integer> a1 = new ArrayList<Integer>();
+
+    static void CheckAllIndex(int[] a, int i, int target) {
+        if (i == a.length) {
+            return;
+        }
+        if (a[i] == target) {
+            a1.add(i);
+        }
+        CheckAllIndex(a, i + 1, target);
+    }
+
+    static ArrayList<Integer> FindallIndex(int[] a, int i, int target, ArrayList<Integer> a2) {
+        if (i == a.length  && (a2.isEmpty()!=true)) return a2;
+        if (a[i] == target) {
+            a2.add(i);
+        }
+        return FindallIndex(a, i + 1, target, a2);
+    }
+
+    static ArrayList<Integer> FindollIndex1(int[] a, int i, int target) {
+        ArrayList<Integer> a3 = new ArrayList<>();
+        if (i == a.length) return a3;
+        if (a[i] == target) {
+            a3.add(i);
+        }
+        ArrayList<Integer> ansfromBelow = FindollIndex1(a, i + 1, target);
+        a3.addAll(ansfromBelow);
+        return a3;
+
+    }
+
     public static void main(String[] args) {
-      int[] a={1,2,3,4,6,5};
-      int target=6;
-        System.out.println(CheckIndex(a,0,target));
+        int[] a = {1, 2, 3, 4, 6, 6, 5};
+        int target = 6;
+        ArrayList<Integer> a4 = new ArrayList<>();
+        System.out.println(CheckIndex(a, 0, target));
+        System.out.println(CheckLastIndex(a, a.length - 1, target));
+        CheckAllIndex(a, 0, target);
+        System.out.println(FindallIndex(a, 0, target, a4));
+        System.out.println(FindollIndex1(a, 0, target));
 
+        System.out.println(a1);
     }
 }
