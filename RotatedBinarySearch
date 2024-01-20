@@ -1,0 +1,33 @@
+public class RotatedBinarySearch {
+    static int search(int[] a, int target, int s, int e) {
+        if (s > e) {
+            return -1;
+        }
+
+        int mid = (s + e) / 2;
+
+        if (a[mid] == target) {
+            return mid;
+        }
+
+        if (a[s] <= a[mid]) {
+            if (target >= a[s] && target <= a[mid]) {
+                return search(a, target, s, mid - 1);
+            } else {
+                return search(a, target, mid + 1, e);
+            }
+        }
+
+        if (target >= a[mid] && target <= a[e]) {
+            return search(a, target, mid + 1, e);
+        }
+
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        int[] a = {1, 2, 3, 4, 5, 56, 6, 67};
+        int target = 67;
+        System.out.println(search(a, target, 0, a.length - 1));
+    }
+}
