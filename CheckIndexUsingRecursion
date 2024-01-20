@@ -1,0 +1,22 @@
+public class CheckIndexUsingRecursion {
+
+  static int CheckIndex(int[] a,int i,int target)
+  {
+      if(i == a.length)
+      {
+          return -1;
+      }
+          if (a[i] == target) {
+              return i;
+          }
+          return CheckIndex(a, i + 1, target);
+
+
+  }
+    public static void main(String[] args) {
+      int[] a={1,2,3,4,6,5};
+      int target=6;
+        System.out.println(CheckIndex(a,0,target));
+
+    }
+}
