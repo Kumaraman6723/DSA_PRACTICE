@@ -1,0 +1,25 @@
+public class TrainglePattern2UsingRecursion {
+    static void triangle(int c,int r)
+    {
+        if(r==0)
+        {
+            return;
+        }
+        if(c<r)
+        {
+
+
+            triangle(c+1,r);
+            System.out.print("*");
+        }
+        else {
+
+            triangle(0,r-1);
+            System.out.println(" ");
+        }
+    }
+    public static void main(String[] args) {
+        triangle(0,4);
+
+    }
+}
