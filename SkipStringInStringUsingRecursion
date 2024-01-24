@@ -1,0 +1,19 @@
+
+class SkipStringInStringUsingRecursion {
+    public static void main(String[] args) {
+        String s = "abcappledade";
+        System.out.println(skip(s, 0));
+    }
+
+    static String skip(String s, int i) {
+        if (i == s.length()) {
+            return "";
+        }
+
+        if (s.startsWith("apple",i)) {
+            return skip(s, i+5);
+        } else {
+            return s.charAt(i) + skip(s, i + 1);
+        }
+    }
+}
