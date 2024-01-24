@@ -1,0 +1,20 @@
+import java.util.Locale;
+
+public class SkipCharacterInStringUsingRecursion {
+    public static void main(String[] args) {
+        String s = "abcdade";
+        System.out.println(skip(s, 0));
+    }
+
+    static String skip(String s, int i) {
+        if (i == s.length()) {
+            return "";
+        }
+
+        if (s.charAt(i) == 'a' || s.charAt(i) == 'A') {
+            return skip(s, i + 1);
+        } else {
+            return s.charAt(i) + skip(s, i + 1);
+        }
+    }
+}
