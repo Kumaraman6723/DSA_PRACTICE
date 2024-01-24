@@ -1,0 +1,20 @@
+class SkipStringInStringUsingRecursion {
+    public static void main(String[] args) {
+        String s = "appabcappledade";
+        System.out.println(skip(s));
+    }
+
+    static String skip(String s) {
+        if(s.isEmpty())
+        {
+            return s;
+        }
+
+
+        if (s.startsWith("app") && !s.startsWith("apple")) {
+            return skip(s.substring(3));
+        } else {
+            return s.charAt(0) + skip(s.substring(1));
+        }
+    }
+}
