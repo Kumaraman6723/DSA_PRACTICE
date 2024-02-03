@@ -1,0 +1,36 @@
+import java.util.Arrays;
+
+public class RowColumnMatrix {
+    public static void main(String[] args) {
+        int[][] matrix = {
+                {1, 4, 7, 11},
+                {2, 5, 8, 12},
+                {3, 6, 9, 16},
+                {10, 13, 14, 17}
+        };
+
+        int target = 8;
+        int[] result = findTarget(matrix, target);
+        System.out.println(Arrays.toString(result));
+    }
+
+    static int[] findTarget(int[][] arr, int target) {
+        int rows = arr.length;
+        int cols = arr[0].length;
+
+        int r = 0;
+        int c = cols - 1;
+
+        while (r < rows && c >= 0) {
+            if (arr[r][c] == target) {
+                return new int[]{r, c};
+            }
+            if (arr[r][c] > target) {
+                c--;
+            } else {
+                r++;
+            }
+        }
+        return new int[]{-1, -1};
+    }
+}
