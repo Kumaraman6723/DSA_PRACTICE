@@ -1,0 +1,96 @@
+public class Patterns {
+    public static void main(String[] args) {
+        pattern31(5);
+    }
+
+    static void pattern1(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = n; j > i; j--) {
+                System.out.print('*');
+            }
+            System.out.println();
+        }
+    }
+
+    static void pattern3(int n) {
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                System.out.print(j + 1);
+            }
+            System.out.println();
+        }
+    }
+
+    static void pattern4(int n) {
+        for (int i = 0; i < 2 * n - 1; i++) {
+            if (i < n) {
+                for (int j = 0; j <= i; j++) {
+                    System.out.print("*");
+                }
+            } else {
+                for (int j = 0; j < 2 * n - 1 - i; j++) {
+                    System.out.print("*");
+                }
+            }
+            System.out.println();
+        }
+    }
+    static void pattern5(int n) {
+        for (int i = 0; i < 2 * n ; i++) {
+            int totalNoOfColumns = i > n ? 2 * n - i : i;
+            int space = (n - totalNoOfColumns);
+
+            // Print spaces
+            for (int k = 0; k < space; k++) {
+                System.out.print(" ");
+            }
+
+            // Print stars
+            for (int j = 0; j < 2 * (n - space) - 1; j++) {
+                System.out.print("*");
+            }
+
+            System.out.println();
+        }
+    }
+    static void pattern30(int n) {
+        for (int row = 1; row <= 2 * n - 1; row++) {
+            // Print spaces
+            int totalNoOfColumns = row > n ? 2 * n - row : row;
+            for (int j = 1; j <= n - totalNoOfColumns; j++) {
+                System.out.print(" ");
+            }
+
+            // Print numbers in decreasing order
+            for (int col = totalNoOfColumns; col >= 1; col--) {
+                System.out.print(col);
+            }
+
+            // Print numbers in increasing order
+            for (int col = 2; col <= totalNoOfColumns; col++) {
+                System.out.print(col);
+            }
+
+            // Move to the next line after each row
+            System.out.println();
+        }
+    }
+    static void pattern31(int n)
+    {
+        int originalN=n;
+        n = 2 * n;
+        for (int row = 0; row <=n ; row++) {
+            for (int col = 0; col <=n; col++) {
+                int valueAtEveryIndex = originalN-Math.min(Math.min(row, col), Math.min(n - row, n - col));
+                System.out.print(valueAtEveryIndex);
+            }
+            System.out.println();
+
+
+        }
+    }
+
+
+
+
+}
