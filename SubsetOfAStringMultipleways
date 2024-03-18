@@ -1,0 +1,80 @@
+import java.util.ArrayList;
+
+public class SubsetOfAString {
+    public static void main(String[] args) {
+          /*subset("","abc");
+        String input = "abc";
+        ArrayList<String> subsets = subset1("", input);
+        System.out.println("Subsets: " + subsets);
+         subset2("","ab");*/
+
+        String input = "abc";
+        ArrayList<String> subsets = subset3("", input);
+        System.out.println("Subsets: " + subsets);
+
+    }
+    static void subset(String p,String up)
+    {
+        if(up.isEmpty())
+        {
+            System.out.println(p);
+            return;
+        }
+char ch=up.charAt(0);
+        subset(p+ch,up.substring(1));
+        subset(p,up.substring(1));
+
+    }
+    static ArrayList<String> subset1(String p,String up)
+    {
+
+        ArrayList<String> result = new ArrayList<>();
+
+        // Base case: if the remaining part is empty, add the current subset
+        if (up.isEmpty()) {
+            System.out.println(p);
+            result.add(p);
+        } else {
+            // Recursive case: explore subsets with and without the current character
+            char ch = up.charAt(0);
+            // Include the current character
+            result.addAll(subset1(p + ch, up.substring(1)));
+            // Exclude the current character
+            result.addAll(subset1(p, up.substring(1)));
+        }
+        return result;
+    }
+    static void subset2(String p,String up)
+    {
+        if(up.isEmpty())
+        {
+            System.out.println(p);
+            return;
+        }
+        char ch=up.charAt(0);
+        subset2(p+ch,up.substring(1));
+        subset2(p+(ch+0),up.substring(1));
+        subset2(p,up.substring(1));
+
+    }
+    static ArrayList<String> subset3(String p,String up)
+    {
+
+        ArrayList<String> result = new ArrayList<>();
+
+        // Base case: if the remaining part is empty, add the current subset
+        if (up.isEmpty()) {
+            System.out.println(p);
+            result.add(p);
+        } else {
+            // Recursive case: explore subsets with and without the current character
+            char ch = up.charAt(0);
+            // Include the current character
+            result.addAll(subset3(p + ch, up.substring(1)));
+            // Exclude the current character
+            result.addAll(subset3(p + (ch+0), up.substring(1)));
+            result.addAll(subset3(p, up.substring(1)));
+        }
+        return result;
+    }
+}
