@@ -1,6 +1,9 @@
+import java.io.StringReader;
+import java.util.ArrayList;
+
 public class maze {
     public static void main(String[] args) {
-        count("",3,3);
+        System.out.println(count1("",3,3));
 
     }
 
@@ -19,5 +22,27 @@ if(c>1)
 
 
     }
+    static ArrayList<String> count1(String p, int r, int c) {
+        ArrayList<String> result = new ArrayList<>();
+        if (r == 1 && c == 1){
+            result.add(p);
+            return result;
+        }
+        if(r>1 &&c>1)
+        {
+            result.addAll(count1(p+'D',r-1,c-1));
+        }
+        if(r>1)
+        {
+            result.addAll(count1(p+'H',r-1,c));
+        }
+        if(c>1)
+        {
+            result.addAll(count1(p+'V',r,c-1));
+        }
 
+
+return result;
+
+    }
 }
