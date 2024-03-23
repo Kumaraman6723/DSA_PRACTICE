@@ -1,0 +1,14 @@
+public class Concatenation_of_Array {
+    public static void main(String[] args) {
+        int[] nums={1,2,3};
+        System.out.println(getConcatenation(nums));
+    }
+    public  static int[] getConcatenation(int[] nums) {
+        for(int i=0;i<nums.length;i++)
+        {
+            nums[nums.length+i]=nums[i];
+        }
+        return nums;
+
+    }
+}
