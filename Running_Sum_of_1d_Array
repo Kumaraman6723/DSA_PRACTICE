@@ -1,0 +1,19 @@
+public class Running_Sum_of_1d_Array {
+    public static void main(String[] args) {
+        int[] nums={1,2,3};
+       for(int a: runningSum(nums))
+       {
+           System.out.println(a);
+       }
+
+    }
+    public static int[] runningSum(int[] nums) {
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i]; // Accumulate the sum
+            nums[i] = sum; // Assign the running sum to the current element
+        }
+        return nums;
+    }
+
+}
