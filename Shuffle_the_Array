@@ -1,0 +1,11 @@
+class Shuffle_the_Array {
+    public int[] shuffle(int[] nums, int n) {
+        int[] shuffled = new int[nums.length];
+        int index = 0;
+        for (int i = 0; i < n; i++) {
+            shuffled[index++] = nums[i]; // Add element from the first half
+            shuffled[index++] = nums[i + n]; // Add element from the second half
+        }
+        return shuffled;
+    }
+}
