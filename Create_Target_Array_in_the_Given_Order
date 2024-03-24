@@ -1,0 +1,24 @@
+public class Create_Target_Array_in_the_Given_Order {
+    public static void main(String[] args) {
+        int[] nums = {0, 1, 2, 3, 4};
+        int[] index = {0, 1, 2, 2, 1};
+        int[] target = createTargetArray(nums, index);
+        for (int n : target) {
+            System.out.println(n);
+        }
+    }
+
+    public static int[] createTargetArray(int[] nums, int[] index) {
+        int[] target = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            int idx = index[i];
+            // Shift elements to the right to make space for the new element
+            for (int j = nums.length - 1; j > idx; j--) {
+                target[j] = target[j - 1];
+            }
+            // Insert the element at the specified index
+            target[idx] = nums[i];
+        }
+        return target;
+    }
+}
