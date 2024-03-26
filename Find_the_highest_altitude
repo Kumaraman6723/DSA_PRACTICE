@@ -1,0 +1,24 @@
+public class Find_the_highest_altitude {
+    public static void main(String[] args) {
+        int[] gain = {-5, 1, 5, 0, -7};
+        System.out.println(largestAltitude(gain));
+    }
+
+    public static int largestAltitude(int[] gain) {
+        int maxAltitude = 0;
+        int[] altitude = new int[gain.length + 1];
+        altitude[0] = maxAltitude;
+
+        for (int i = 0; i < gain.length; i++) {
+            altitude[i + 1] = altitude[i] + gain[i];
+        }
+
+        int max = altitude[0];
+        for (int i = 1; i < altitude.length; i++) {
+            if (max < altitude[i]) {
+                max = altitude[i];
+            }
+        }
+        return max;
+    }
+}
