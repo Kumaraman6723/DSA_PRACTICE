@@ -1,0 +1,40 @@
+public class FlippingAnImage {
+    public static void main(String[] args) {
+int[][] imagee={
+        {1,0,1},
+        {0,1,0},
+        {0,0,0}
+};
+for(int[]a :flipAndInvertImage(imagee))
+{
+    for(int a1:a)
+    {
+        System.out.print(a1);
+    }
+    System.out.println();
+}
+
+
+    }
+    public static int[][] flipAndInvertImage(int[][] image) {
+        int rows = image.length;
+        int cols = image[0].length;
+
+        // Iterate through each row of the image
+        for (int[] row : image) {
+            // Swap elements from left to right
+            for (int i = 0; i < cols / 2; i++) {
+                int temp = row[i];
+                row[i] = row[cols - 1 - i];
+                row[cols - 1 - i] = temp;
+            }
+            for (int i = 0; i < cols; i++) {
+                row[i] = row[i] == 0 ? 1 : 0;
+            }
+        }
+
+
+        return image;
+
+    }
+}
