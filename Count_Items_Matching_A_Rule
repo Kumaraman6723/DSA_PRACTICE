@@ -1,0 +1,35 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Count_Items_Matching_A_Rule {
+    public static void main(String[] args) {
+        List<List<String>> items = new ArrayList<>();
+        items.add(List.of("phone", "blue", "pixel"));
+        items.add(List.of("computer", "silver", "lenovo"));
+        items.add(List.of("phone", "gold", "iphone"));
+        items.add(List.of("laptop", "white", "macbook"));
+
+        String ruleKey = "color";
+        String ruleValue = "silver";
+        int count = countMatches(items, ruleKey, ruleValue);
+        System.out.println("Number of items matching the rule: " + count);
+    }
+
+
+    public static int countMatches(List<List<String>> items, String ruleKey, String ruleValue) {
+        int count = 0;
+        int index = 0;
+        if (ruleKey.equals("color")) {
+            index = 1;
+        }
+        for (List<String> item : items) {
+            if (item.get(index).equals(ruleValue)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+}
+
+
