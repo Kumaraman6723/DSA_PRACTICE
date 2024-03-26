@@ -1,0 +1,24 @@
+public class checkIfPangram {
+    public static void main(String[] args) {
+        String sentence = "thequickbrownfoxjumpsoverthelazydog";
+        System.out.println(checkIfPangram(sentence));
+
+    }
+
+    public static boolean checkIfPangram(String sentence) {
+        boolean[] vis = new boolean[26];
+        for (int i = 0; i < sentence.length(); i++) {
+            vis[sentence.charAt(i) - 'a'] = true;
+
+
+        }
+        for (boolean b : vis) {
+            if (!b) {
+                return false;
+            }
+
+        }
+        return true;
+
+    }
+}
