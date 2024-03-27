@@ -1,0 +1,48 @@
+import java.util.Arrays;
+
+public class Cells_With_Odd_Values_In_A_Matrix {
+    public static void main(String[] args) {
+        int[][] indices={
+                {0,1},
+                {1,1}
+        };
+        int j=oddCells(2,3,indices);
+        System.out.println(j);
+
+    }
+    public static int oddCells(int m, int n, int[][] indices) {
+        int count = 0;
+        int[][] matrix = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            Arrays.fill(matrix[i], 0);
+        }
+
+
+        for(int[] row: indices)
+        {
+
+            int rowI=row[0];
+            for (int j = 0; j < n; j++) {
+                matrix[rowI][j]+=1;
+            }
+            int colI=row[1];
+            for (int j = 0; j < m; j++) {
+                matrix[j][colI]+=1;
+            }
+
+        }
+        for(int[] a: matrix)
+        {
+            for(int b:a)
+            {
+                if(b%2!=0)
+                {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+}
