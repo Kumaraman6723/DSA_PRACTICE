@@ -1,0 +1,28 @@
+public class FindNumbersWithEvenNoOfDigits {
+    public static void main(String[] args) {
+        int[] a={12,345,2,6,7896};
+        System.out.println(findNumbers(a));
+
+    }
+    public static int findNumbers(int[] nums) {
+        int count = 0; // Initialize count outside the loop
+
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i]; // Store the current number in a variable
+            int digitCount = 0; // Initialize digit count for the current number
+
+            // Count the digits in the current number
+            while (num > 0) {
+                num /= 10;
+                digitCount++;
+            }
+
+            // Check if the digit count is even
+            if (digitCount % 2 == 0) {
+                count++; // Increment the count if the digit count is even
+            }
+        }
+
+        return count;
+
+    }}
