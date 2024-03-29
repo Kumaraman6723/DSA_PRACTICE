@@ -1,0 +1,33 @@
+public class MaximumPopulationYear {
+    public static void main(String[] args) {
+        int[][] logs ={
+                {1993,1999},
+                {2000,2010}
+
+        };
+        System.out.println(maximumPopulation(logs));
+    }
+    public static int maximumPopulation(int[][] logs) {
+        //used prefix sum approach
+        // to revise watch https://www.youtube.com/watch?v=v0xswVJnRlE&t=441s this
+        int[] arr = new int[100];
+        for(int[] log: logs)
+        {
+            int by=log[0];
+            int dy=log[1];
+            arr[by-1950]++;
+            arr[dy-1950]--;
+        }
+        int max=arr[0];
+        int maxYear=1950;
+        for (int i = 1; i < arr.length ; i++) {
+            arr[i]+=arr[i-1];
+            if(max<arr[i]) {
+                max = arr[i];
+                maxYear=i+1950;
+
+            }
+        }
+        return maxYear;
+    }
+}
