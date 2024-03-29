@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class AddToArrayFormOfInteger {
+    public static void main(String[] args) {
+        int[] num = {2,7,4};
+        System.out.println(addToArrayForm(num, 181));
+
+    }
+
+    public static List<Integer> addToArrayForm(int[] num, int k) {
+        List<Integer> list = new ArrayList<>();
+
+        int carry = 0;
+       int p= num.length;
+        for (int i = p-1; i >=0 ; i--) {
+            num[i]=num[i]+k%10+carry;
+            list.add(num[i]%10);
+            carry=num[i]/10;
+            k=k/10;
+
+        }
+        k=k+carry;
+        while (k!=0)
+        {
+            list.add(k%10);
+            k/=10;
+        }
+        Collections.reverse(list);
+        return list;
+
+    }
+}
