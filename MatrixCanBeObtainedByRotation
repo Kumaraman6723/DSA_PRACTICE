@@ -1,0 +1,61 @@
+public class MatrixCanBeObtainedByRotation {
+    public static void main(String[] args) {
+        int[][] mat = {
+                {0, 1},
+                {1, 0}
+        };
+        int[][] target = {
+                {1, 0},
+                {0, 1}
+        };
+        boolean canBeObtained = findRotation(mat, target);
+        if (canBeObtained) {
+            System.out.println("The target matrix can be obtained by rotating the original matrix.");
+        } else {
+            System.out.println("The target matrix cannot be obtained by rotating the original matrix.");
+        }
+    }
+
+    public static boolean findRotation(int[][] mat, int[][] target) {
+        int N = mat.length;
+        int[][] rotated = new int[N][N];
+
+        boolean isEqual = false; // Default to false
+
+        // Rotate the matrix and check after each rotation
+        for (int rotation = 0; rotation < 4; rotation++) { // Corrected loop condition
+            isEqual = true; // Assume it's equal initially
+
+            // Rotate the matrix
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
+                    rotated[j][N - 1 - i] = mat[i][j];
+                }
+            }
+
+            // Check if the rotated matrix matches the target matrix
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < N; j++) {
+                    if (rotated[i][j] != target[i][j]) {
+                        isEqual = false;
+                        break;
+                    }
+                }
+                if (!isEqual) {
+                    break;
+                }
+            }
+
+            if (isEqual) {
+                return true; // If found a match, return true
+            }
+
+            // Set mat to rotated matrix for the next rotation
+            int[][] temp = mat;
+            mat = rotated;
+            rotated = temp;
+        }
+
+        return false; // If no match found after 4 rotations, return false
+    }
+}
