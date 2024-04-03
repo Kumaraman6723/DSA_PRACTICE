@@ -1,0 +1,20 @@
+public class MinimumCostToMoveChipsToTheSamePosition {
+    public static void main(String[] args) {
+int[] a={1,2,3};
+        System.out.println(minCostToMoveChips(a));
+    }
+    public static int minCostToMoveChips(int[] position) {
+        int even=0, odd=0;
+        for (int i = 0; i < position.length ; i++) {
+            if(position[i]%2==0)
+            {
+                even++;
+            }
+            else {
+                odd++;
+            }
+        }
+        int min=Math.min(even,odd);
+        return min;
+    }
+}
