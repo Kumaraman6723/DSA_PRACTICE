@@ -1,0 +1,53 @@
+public class GenerateSpiralMatrix {
+    public static void main(String[] args) {
+        for(int[] a: generateMatrix(3))
+        {
+            for(int a1 :a)
+            {
+                System.out.print(a1);
+            }
+            System.out.println();
+        }
+
+    }
+    public static int[][] generateMatrix(int n) {
+        int[][] matrix= new int[n][n];
+        int m = matrix.length;
+        int n1 = matrix[0].length;
+        int top = 0;
+        int bottom = m - 1;
+        int left = 0;
+        int right = n1- 1;
+        int num=1;
+        while (top <= bottom && left <= right) {
+            for (int i = left; i <= right; i++) {
+                matrix[top][i]=num;
+                num++;
+
+            }
+            top++;
+            for (int i = top; i <= bottom; i++) {
+                matrix[i][right]=num;
+                num++;
+            }
+            right--;
+            if (top <= bottom) {
+                for (int i = right; i >= left; i--) {
+                    matrix[bottom][i]=num;
+                    num++;
+
+                }
+                bottom--;
+            }
+            if (left <= right) {
+                for (int i = bottom; i >= top; i--) {
+                    matrix[i][left]=num;
+                    num++;
+                }
+                left++;
+            }
+
+        }
+        return matrix;
+    }
+}
