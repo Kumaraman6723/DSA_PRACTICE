@@ -1,0 +1,15 @@
+class Solution {
+    public boolean canJump(int[] nums) {
+         int lastIndex = nums.length - 1; // Last index to reach
+        int maxReach = 0; // Maximum index reachable so far
+
+        for (int i = 0; i <= maxReach; i++) {
+            maxReach = Math.max(maxReach, i + nums[i]); // Update maximum reachable index
+            if (maxReach >= lastIndex) {
+                return true; // If we can reach the last index or beyond, return true
+            }
+        }
+
+        return false; // If we can't reach the last index
+    }
+    }
