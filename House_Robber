@@ -1,0 +1,32 @@
+import java.util.Arrays;
+
+class Solution123 {
+    public int rob(int[] nums) {
+        // Create a memoization table to store already computed results
+        int[] memo = new int[nums.length];
+        // Initialize the memoization table with -1 to indicate uncalculated values
+        Arrays.fill(memo, -1);
+        return solve(nums, 0, memo);
+    }
+
+    private static int solve(int[] nums, int i, int[] memo) {
+        // If the index exceeds the length of the array, return 0
+        if (i >= nums.length) {
+            return 0;
+        }
+
+        // If the result is already computed, return it from the memoization table
+        if (memo[i] != -1) {
+            return memo[i];
+        }
+
+        // Calculate the maximum amount if we choose to rob the current house or skip it
+        int steal = nums[i] + solve(nums, i + 2, memo);
+        int skip = solve(nums, i + 1, memo);
+
+        // Store the result in the memoization table
+        memo[i] = Math.max(steal, skip);
+
+        return memo[i];
+    }
+}
