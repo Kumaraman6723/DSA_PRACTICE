@@ -1,0 +1,30 @@
+import java.util.Arrays;
+
+public class FrogJump {
+    public static void main(String[] args) {
+        int[] height = {10, 40, 20, 60, 70};
+        int[] dp = new int[height.length];
+        Arrays.fill(dp, -1);
+        int a = jump(height.length - 1, dp, height);
+        System.out.println(a);
+    }
+
+    static int jump(int n, int[] dp, int[] height) {
+        if (n == 0) {
+            return 0;
+        }
+        if (dp[n] != -1) {
+            return dp[n];
+        }
+        int left = Integer.MAX_VALUE;
+        if (n > 0) {
+            left = jump(n - 1, dp, height) + Math.abs(height[n] - height[n - 1]);
+        }
+        int right = Integer.MAX_VALUE;
+        if (n > 1) {
+            right = jump(n - 2, dp, height) + Math.abs(height[n] - height[n - 2]);
+        }
+        dp[n] = Math.min(left, right);
+        return dp[n];
+    }
+}
