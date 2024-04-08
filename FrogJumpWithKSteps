@@ -1,0 +1,42 @@
+import java.util.Arrays;
+
+public class FrogJumpWithKSteps {
+    public static void main(String[] args) {
+        int[] height = {10, 40, 20, 60, 70};
+        System.out.println(jump(height.length - 1, 3, height)); // Output: 50
+        int[] dp = new int[height.length];
+        Arrays.fill(dp, -1);
+        System.out.println(jump1(height.length - 1, 3, height, dp)); // Output: 50
+    }
+
+    // Using recursion
+    static int jump(int n, int k, int[] height) {
+        if (n == 0) {
+            return 0;
+        }
+        int minSteps = Integer.MAX_VALUE;
+        for (int i = 1; i <= k && n - i >= 0; i++) {
+            int jump = jump(n - i, k, height) + Math.abs(height[n] - height[n - i]);
+            minSteps = Math.min(minSteps, jump);
+        }
+        return minSteps;
+    }
+
+    // Using DP
+    static int jump1(int n, int k, int[] height, int[] dp) {
+        if (n == 0) {
+            return 0;
+        }
+        dp[0]=0;
+        if (dp[n] != -1) {
+            return dp[n];
+        }
+        int minSteps = Integer.MAX_VALUE;
+        for (int i = 1; i <= k && n - i >= 0; i++) {
+            int jump = jump1(n - i, k, height, dp) + Math.abs(height[n] - height[n - i]);
+            minSteps = Math.min(jump, minSteps);
+        }
+        dp[n] = minSteps;
+        return dp[n];
+    }
+}
