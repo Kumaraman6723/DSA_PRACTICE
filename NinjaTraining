@@ -1,0 +1,68 @@
+import java.util.Arrays;
+
+public class NinjaTraining {
+    public static void main(String[] args) {
+        int[][] nums = {
+                {10, 50, 1},
+                {5, 100, 11}
+        };
+        System.out.println(func(nums.length - 1, 3, nums));
+        int[][] dp = new int[nums.length][3];
+        for (int[] a : dp) {
+            Arrays.fill(a, -1); // Corrected to fill with -1
+        }
+        System.out.println(func1(nums.length - 1, 0, nums, dp));
+
+    }
+
+    // recursion
+    static int func(int day, int last, int[][] points) {
+        if (day == 0) {
+            int maxi = 0;
+            for (int task = 0; task < 3; task++) {
+                if (task != last) {
+                    maxi = Math.max(maxi, points[0][task]);
+                }
+
+            }
+            return maxi;
+        }
+        int maxi = 0;
+        for (int task = 0; task < 3; task++) {
+            if (task != last) {
+                int point = points[day][task] + func(day - 1, task, points);
+                maxi = Math.max(maxi, point);
+            }
+
+        }
+        return maxi;
+    }
+
+    // dp
+    static int func1(int day, int last, int[][] points, int[][] dp) {
+
+        if (day == 0) {
+            int maxi = 0;
+            for (int task = 0; task < 3; task++) {
+                if (task != last) {
+                    maxi = Math.max(maxi, points[0][task]);
+                }
+
+            }
+            return  maxi;
+        }
+        if (dp[day][last] != -1) {
+            return dp[day][last];
+        }
+        int maxi = 0;
+        for (int task = 0; task < 3; task++) {
+            if (task != last) {
+                int point = points[day][task] + func1(day - 1, task, points, dp); // Fixed to use func1 instead of func
+                maxi = Math.max(maxi, point);
+            }
+
+        }
+        return dp[day][last] = maxi;
+
+    }
+}
