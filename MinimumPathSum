@@ -1,0 +1,74 @@
+import java.util.Arrays;
+
+public class MinimumPathSum {
+    public static void main(String[] args) {
+        int[][] path = {
+                {1,3,1},
+                {1,5,1},
+                {4,2,1}
+
+        };
+        int[][] dp=new int[path.length][path[0].length];
+        for(int a[] : dp)
+        {
+            Arrays.fill(a,-1);
+        }
+
+        System.out.println(minPath(path,path.length-1,path[0].length-1,dp));
+        System.out.println(minpath(path,path.length-1,path[0].length-1));
+        System.out.println(minPath1(path,path.length-1,path[0].length-1,dp));
+    }
+    //recursion
+    static int minpath(int[][] arr,int row,int col)
+    {
+        if(row==0 && col==0)
+        {
+            return arr[row][col];
+        }
+        if (row < 0|| col<0){
+            return (int) Math.pow(10, 9);
+        }
+
+        int up=arr[row][col]+minpath(arr,row-1,col);
+        int left=arr[row][col]+minpath(arr,row,col-1);
+        return Math.min(up,left);
+    }
+    //memoization
+    static int minPath(int[][] arr, int row, int col, int[][] dp)
+    {
+        if(row==0 && col==0)
+        {
+            return arr[row][col];
+        }
+        if (row < 0|| col<0){
+           return (int) Math.pow(10, 9);
+        }
+        if(dp[row][col]!=-1)
+        {
+            return dp[row][col];
+        }
+        int up=arr[row][col]+minPath(arr,row-1,col, dp);
+        int left=arr[row][col]+minPath(arr,row,col-1, dp);
+        return dp[row][col]=Math.min(up,left);
+    }
+    //tabulation
+    static int minPath1(int[][] arr, int row, int col, int[][] dp)
+    {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if(i==0 && j==0)
+                {
+                    dp[i][j]=arr[i][j];
+                }
+                else{
+                    int up=arr[i][j]+minPath(arr,row-1,col, dp);
+                    int left=arr[i][j]+minPath(arr,row,col-1, dp);
+                     dp[i][j]=Math.min(up,left);
+                }
+            }
+
+        }
+        return dp[row][col];
+
+    }
+}
