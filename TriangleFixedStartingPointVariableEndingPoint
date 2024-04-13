@@ -1,0 +1,64 @@
+import java.util.Arrays;
+
+public class TriangleFixedStartingPointVariableEndingPoint {
+    public static void main(String[] args) {
+        int[][] grid={
+                {1},
+                {2,3},
+                {3,6,7},
+                {8,9,6,10}
+        };
+        int n = grid.length;
+        int[][] dp = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(dp[i], -1);
+        }
+        System.out.println(min(grid,0,0));
+        System.out.println(min(grid,0,0,dp));
+        System.out.println(min1(grid,0,0,dp));
+
+    }
+    //recursion
+    static int min(int[][] arr,int row,int col)
+    {
+        if(row==arr.length-1)
+        {
+            return arr[row][col];
+        }
+        int down=arr[row][col]+min(arr,row+1,col);
+        int diagnol=arr[row][col]+min(arr,row+1,col+1);
+        return Math.min(down,diagnol);
+    }
+    //memoization
+    static int min(int[][] arr, int row, int col, int[][] dp) {
+        if (row == arr.length - 1) {
+            return arr[row][col];
+        }
+
+        if (dp[row][col] != -1) {
+            return dp[row][col];
+        }
+
+        int down = arr[row][col] + min(arr, row + 1, col, dp);
+        int diagonal = arr[row][col] + min(arr, row + 1, col + 1, dp);
+
+        dp[row][col] = Math.min(down, diagonal);
+        return dp[row][col];
+    }
+    //tabulation
+    static int min1(int[][] arr, int row, int col, int[][] dp) {
+        for (int i = 0; i < arr.length; i++) {
+            dp[arr.length-1][i]=arr[arr.length-1][i];
+        }
+        for (int i = arr.length-2; i >=0 ; i--) {
+            for (int j = 0; j <= i ; j++) {
+                int down = arr[i][j]+dp[i+1][j];
+                int diagonal = arr[i][j]+dp[i+1][j+1];
+                dp[i][j]=Math.min(down,diagonal);
+            }
+        }
+        return dp[0][0];
+    }
+
+}
