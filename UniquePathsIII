@@ -1,0 +1,62 @@
+public class UniquePathsIII {
+    public static void main(String[] args) {
+        int[][] grid = {
+                {1, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 2, -1}
+        };
+        System.out.println(uniquePathsIII(grid));
+    }
+
+    public static int uniquePathsIII(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int[] start = startingPoint(grid);
+        int emptySquares = countEmptySquares(grid);
+        return backtrack(grid, start[0], start[1], emptySquares);
+    }
+
+    static int backtrack(int[][] grid, int i, int j, int emptySquares) {
+        int m = grid.length;
+        int n = grid[0].length;
+        if (!(i >= 0 && i < m && j >= 0 && j < n && grid[i][j] >= 0)) {
+            return 0;
+        }
+        if (grid[i][j] == 2) {
+            return emptySquares == 0 ? 1 : 0;
+        }
+
+        grid[i][j] = -2; // Mark as visited
+        int paths = backtrack(grid, i + 1, j, emptySquares - 1) +
+                backtrack(grid, i - 1, j, emptySquares - 1) +
+                backtrack(grid, i, j + 1, emptySquares - 1) +
+                backtrack(grid, i, j - 1, emptySquares - 1);
+        grid[i][j] = 0; // Reset the cell
+        return paths;
+    }
+
+    static int[] startingPoint(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 1) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return new int[]{-1, -1};
+    }
+
+    static int countEmptySquares(int[][] grid) {
+        int count = 0;
+        for (int[] row : grid) {
+            for (int cell : row) {
+                if (cell == 0 || cell == 1) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+}
