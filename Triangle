@@ -1,0 +1,44 @@
+import java.util.*;
+
+class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int n = triangle.size();
+        int[][] arr = new int[n][];
+        
+        // Convert List<List<Integer>> to int[][]
+        for (int i = 0; i < n; i++) {
+            List<Integer> row = triangle.get(i);
+            arr[i] = new int[row.size()];
+            for (int j = 0; j < row.size(); j++) {
+                arr[i][j] = row.get(j);
+            }
+        }
+
+        int[][] dp = new int[n][n];
+  for (int i = 0; i < n; i++) {
+            Arrays.fill(dp[i], -1);
+        }
+    
+
+        return min(arr, 0, 0, dp);
+    }
+
+    static int min(int[][] arr, int row, int col, int[][] dp) {
+         if (row == arr.length - 1) {
+            return arr[row][col];
+        }
+
+        if (dp[row][col] != -1) {
+            return dp[row][col];
+        }
+
+        int down = arr[row][col] + min(arr, row + 1, col, dp);
+        int diagonal = arr[row][col] + min(arr, row + 1, col + 1, dp);
+
+        dp[row][col] = Math.min(down, diagonal);
+        return dp[row][col];
+    }
+    
+
+  
+}
