@@ -1,0 +1,117 @@
+import java.util.Arrays;
+
+public class MaximumPathSumVariableStartingPointAndEndingPoint {
+    public static void main(String[] args) {
+        int grid[][] = {{1, 2, 10, 4},
+                {100, 3, 2, 1},
+                {1, 1, 20, 2},
+                {1, 2, 2, 1}};
+
+        int max = Integer.MIN_VALUE;
+        int row=grid.length;
+        int col = grid[0].length;
+        int[][] dp=new int[row][col];
+        for(int[] a:dp)
+        {
+            Arrays.fill(a,-1);
+        }
+        System.out.println(maxPath2(grid,row,col,dp));
+        int cols=grid[0].length;
+        System.out.println(maxPathSum(grid, grid.length - 1, cols));
+
+
+    }
+
+    static int maxPathSum(int[][] arr, int rows, int cols) {
+        int max = Integer.MIN_VALUE;
+        int row=arr.length;
+        int col = arr[0].length;
+        int[][] dp=new int[row][col];
+        for(int[] a:dp)
+        {
+            Arrays.fill(a,-1);
+        }
+        for (int i = 0; i < cols; i++) {
+            max = Math.max(max, maxSum1(arr, rows, i,dp));
+        }
+        return max;
+    }
+//recursion
+    static int maxSum(int[][] arr, int row, int col) {
+
+        if (col < 0|| col>=arr[0].length)
+        {
+            return -10^9;
+        }
+        if (row == 0) {
+            return arr[0][col];
+        }
+
+        int up = arr[row][col] + maxSum(arr, row - 1, col);
+        int leftDiagonal =  arr[row][col] + maxSum(arr, row - 1, col - 1);
+        int rightDiagonal = arr[row][col] + maxSum(arr, row - 1, col + 1);
+
+        return Math.max(up, Math.max(rightDiagonal, leftDiagonal));
+    }
+    //memoization
+    static int maxSum1(int[][] arr, int row, int col,int[][] dp) {
+
+        if (col < 0|| col>=arr[0].length)
+        {
+            return -10^9;
+        }
+        if (row == 0) {
+            return arr[0][col];
+        }
+        if(dp[row][col]!=-1)
+        {
+            return dp[row][col];
+        }
+
+        int up = arr[row][col] + maxSum1(arr, row - 1, col,dp);
+        int leftDiagonal =  arr[row][col] + maxSum1(arr, row - 1, col - 1,dp);
+        int rightDiagonal = arr[row][col] + maxSum1(arr, row - 1, col + 1,dp);
+
+        return dp[row][col]=Math.max(up, Math.max(rightDiagonal, leftDiagonal));
+    }
+    //tabulation
+    static int maxPath2(int[][] arr,int rows,int cols,int[][] dp)
+    {
+        for (int i = 0; i < cols; i++) {
+            dp[0][i]=arr[0][i];
+        }
+        for (int i = 1; i < rows; i++) {
+
+            for (int j = 0; j < cols; j++) {
+
+                int up = arr[i][j] + dp[i - 1][j];
+
+                int leftDiagonal = arr[i][j];
+                if (j - 1 >= 0) {
+                    leftDiagonal += dp[i - 1][j - 1];
+                } else {
+                    leftDiagonal += (int) Math.pow(-10, 9);
+                }
+
+                int rightDiagonal = arr[i][j];
+                if (j + 1 < cols) {
+                    rightDiagonal += dp[i - 1][j + 1];
+                } else {
+                    rightDiagonal += (int) Math.pow(-10, 9);
+                }
+
+                // Store the maximum of the three paths in dp
+                dp[i][j] = Math.max(up, Math.max(leftDiagonal, rightDiagonal));
+
+            }
+
+        }
+        int maxi = Integer.MIN_VALUE;
+        for (int j = 0; j < cols; j++) {
+            maxi = Math.max(maxi, dp[rows - 1][j]);
+        }
+
+        return maxi;
+    }
+
+}
