@@ -1,0 +1,86 @@
+import java.util.Arrays;
+
+public class SubSetSumsEqualsToTarget {
+    public static void main(String[] args) {
+        int[] a = {1, 3, 2, 1, 1};
+        int k = 4;
+        int n = a.length;
+        System.out.println(func(n - 1, k, a));
+        int[][] dp = new int[n][k + 1];
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(dp[i], -1); // Initializing dp array
+        }
+        System.out.println(func1(n - 1, k, a, dp));
+        System.out.println(subsetSumToK(n,k,a));
+    }
+
+    // Recursion
+    static boolean func(int ind, int target, int[] arr) {
+        if (target == 0) {
+            return true;
+        }
+        if (ind == 0) {
+            return (arr[0] == target);
+        }
+        boolean notTake = func(ind - 1, target, arr);
+        boolean take = false;
+        if (arr[ind] <= target) {
+            take = func(ind - 1, target - arr[ind], arr);
+        }
+        return take || notTake;
+    }
+
+    // Dynamic Programming with memoization
+    static boolean func1(int ind, int target, int[] arr, int[][] dp) {
+        if (target == 0) {
+            return true;
+        }
+        if (ind == 0) {
+            return (arr[0] == target);
+        }
+        if (dp[ind][target] != -1) {
+            return dp[ind][target] == 1; // returning boolean value
+        }
+        boolean notTake = func1(ind - 1, target, arr, dp);
+        boolean take = false;
+        if (arr[ind] <= target) {
+            take = func1(ind - 1, target - arr[ind], arr, dp);
+        }
+        dp[ind][target] = (take || notTake) ? 1 : 0; // storing 1 or 0 based on boolean result
+        return dp[ind][target] == 1;
+    }
+    static boolean subsetSumToK(int n, int k, int[] arr) {
+        // Create a boolean DP table with dimensions [n][k+1]
+        boolean dp[][] = new boolean[n][k + 1];
+
+        // Initialize the first row of the DP table
+        for (int i = 0; i < n; i++) {
+            dp[i][0] = true;
+        }
+
+        // Initialize the first column of the DP table
+        if (arr[0] <= k) {
+            dp[0][arr[0]] = true;
+        }
+
+        // Fill in the DP table using bottom-up approach
+        for (int ind = 1; ind < n; ind++) {
+            for (int target = 1; target <= k; target++) {
+                // Calculate if the current target can be achieved without taking the current element
+                boolean notTaken = dp[ind - 1][target];
+
+                // Calculate if the current target can be achieved by taking the current element
+                boolean taken = false;
+                if (arr[ind] <= target) {
+                    taken = dp[ind - 1][target - arr[ind]];
+                }
+
+                // Store the result in the DP table
+                dp[ind][target] = notTaken || taken;
+            }
+        }
+
+        // The final result is stored in the bottom-right cell of the DP table
+        return dp[n - 1][k];
+    }
+}
