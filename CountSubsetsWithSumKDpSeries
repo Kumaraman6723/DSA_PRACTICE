@@ -1,0 +1,33 @@
+import java.util.Arrays;
+
+public class CountSubsetsWithSumK {
+    public static void main(String[] args) {
+        int[] arr = {1, 1, 1};
+        int k = 2;
+        int n = arr.length;
+        int[][] dp = new int[n][k + 1]; // corrected the size of the second dimension
+        for (int a[] : dp) {
+            Arrays.fill(a, -1);
+        }
+        System.out.println(count(n - 1, arr, k, dp));
+    }
+
+    static int count(int index, int[] arr, int target, int[][] dp) {
+        if (target == 0) {
+            return 1;
+        }
+        if (index == 0) {
+            return arr[index] == target ? 1 : 0;
+        }
+        if (dp[index][target] != -1) {
+            return dp[index][target];
+        }
+        int notPick = count(index - 1, arr, target, dp);
+        int pick = 0;
+        if (arr[index] <= target) {
+            pick = count(index - 1, arr, target - arr[index], dp);
+        }
+        dp[index][target] = pick + notPick;
+        return dp[index][target];
+    }
+}
